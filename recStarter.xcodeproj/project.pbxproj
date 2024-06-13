@@ -17,6 +17,7 @@
 		D12819212C1B472C0063F554 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12819202C1B472C0063F554 /* ButtonStyle.swift */; };
 		D12819242C1B84C90063F554 /* CBUUIDs.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12819232C1B84C90063F554 /* CBUUIDs.swift */; };
 		D12819262C1B84F90063F554 /* BlePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12819252C1B84F90063F554 /* BlePeripheral.swift */; };
+		D12819282C1BA9040063F554 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D12819272C1BA9040063F554 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		D12819202C1B472C0063F554 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		D12819232C1B84C90063F554 /* CBUUIDs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBUUIDs.swift; sourceTree = "<group>"; };
 		D12819252C1B84F90063F554 /* BlePeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlePeripheral.swift; sourceTree = "<group>"; };
+		D12819272C1BA9040063F554 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		D12818E42C1B45BE0063F554 = {
 			isa = PBXGroup;
 			children = (
+				D12819272C1BA9040063F554 /* .gitignore */,
 				D12818EF2C1B45BE0063F554 /* recStarter */,
 				D12819062C1B45C40063F554 /* recStarterTests */,
 				D12819102C1B45C40063F554 /* recStarterUITests */,
@@ -243,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D12818FD2C1B45C30063F554 /* LaunchScreen.storyboard in Resources */,
+				D12819282C1BA9040063F554 /* .gitignore in Resources */,
 				D12818FA2C1B45C30063F554 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

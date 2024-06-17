@@ -7,20 +7,83 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "45EBFAA7-3C00-400B-866F-AD4B7A74EC44"
-            shouldBeEnabled = "Yes"
+            uuid = "9F4AE633-328A-4EC6-BD18-4F3BBEE8C2D9"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "recStarter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "391"
-            endingLineNumber = "391"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "centralManager(_:didDiscover:advertisementData:rssi:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9F4AE633-328A-4EC6-BD18-4F3BBEE8C2D9 - 4ae94417ec49e971"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "recStarter.HomeViewController.centralManager(_: __C.CBCentralManager, didConnect: __C.CBPeripheral) -&gt; ()"
+                  moduleName = "recStarter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dumbo/Documents/XCode/recStarter/recStarter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "291"
+                  endingLineNumber = "291"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "9F4AE633-328A-4EC6-BD18-4F3BBEE8C2D9 - 7458cf97d9d6a46"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "recStarter.HomeViewController.centralManager(_: __C.CBCentralManager, didDiscover: __C.CBPeripheral, advertisementData: Swift.Dictionary&lt;Swift.String, Any&gt;, rssi: __C.NSNumber) -&gt; ()"
+                  moduleName = "recStarter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dumbo/Documents/XCode/recStarter/recStarter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "291"
+                  endingLineNumber = "291"
+                  offsetFromSymbolStart = "2208">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F26C985E-1825-4682-8A91-30EC6A5F6575"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "recStarter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "45EBFAA7-3C00-400B-866F-AD4B7A74EC44 - 9c6841644d8d117c"
+                  uuid = "F26C985E-1825-4682-8A91-30EC6A5F6575 - 9c6841644d8d117c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "recStarter.HomeViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "recStarter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dumbo/Documents/XCode/recStarter/recStarter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "393"
+                  endingLineNumber = "393"
+                  offsetFromSymbolStart = "252">
+               </Location>
+               <Location
+                  uuid = "F26C985E-1825-4682-8A91-30EC6A5F6575 - 9c6841644d8d117c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -34,8 +97,26 @@
                   endingLineNumber = "393"
                   offsetFromSymbolStart = "240">
                </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AF850FA1-EB53-413A-AFE2-D6CEABE89C80"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "recStarter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+            <Locations>
                <Location
-                  uuid = "45EBFAA7-3C00-400B-866F-AD4B7A74EC44 - 9c6841644d8d11be"
+                  uuid = "AF850FA1-EB53-413A-AFE2-D6CEABE89C80 - 9c6841644d8d113a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -45,9 +126,24 @@
                   urlString = "file:///Users/dumbo/Documents/XCode/recStarter/recStarter/HomeViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "391"
-                  endingLineNumber = "391"
-                  offsetFromSymbolStart = "240">
+                  startingLineNumber = "395"
+                  endingLineNumber = "395"
+                  offsetFromSymbolStart = "728">
+               </Location>
+               <Location
+                  uuid = "AF850FA1-EB53-413A-AFE2-D6CEABE89C80 - 9c6841644d8d113a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "recStarter.HomeViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "recStarter"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dumbo/Documents/XCode/recStarter/recStarter/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "395"
+                  endingLineNumber = "395"
+                  offsetFromSymbolStart = "776">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -55,16 +151,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9F4AE633-328A-4EC6-BD18-4F3BBEE8C2D9"
-            shouldBeEnabled = "Yes"
+            uuid = "0CF706D4-5557-4A7A-90FC-EE59B3CC328A"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "recStarter/HomeViewController.swift"
+            filePath = "recStarter/View/TableViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
-            landmarkName = "centralManager(_:didDiscover:advertisementData:rssi:)"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "setSelected(_:animated:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -12,10 +12,6 @@ import SwiftUI
 import CoreBluetooth
 
 class HomeViewController: UIViewController {
-    
-    private var data = ["asdasda","asdasda"]
-    
-    
     // MARK: - BlueTooth var
     private var _centralManager: CBCentralManager!
     private var bluefruitPeripheral: CBPeripheral!
@@ -28,12 +24,13 @@ class HomeViewController: UIViewController {
     
     // MARK: - GUI variables
     
-    lazy var tableView: UITableView = {
-        let table =  UITableView()
-        table.backgroundColor = .white
-        table.translatesAutoresizingMaskIntoConstraints = false
-        return table
-    }()
+    var tableView: UITableView!
+//    = {
+//        let table =  UITableView()
+//        table.backgroundColor = .white
+//        table.translatesAutoresizingMaskIntoConstraints = false
+//        return table
+//    }()
     
     lazy var peripheralFoundLabel: UILabel = {
         let textLabel = UILabel()
@@ -73,11 +70,11 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .black
         setupNavigationController()
-        addSubViews()
         setupStackView()
         setupTableView()
+        addSubViews()
         setupConstraints()
-        
+        print(navigationController?.children)
         _centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
@@ -88,17 +85,26 @@ class HomeViewController: UIViewController {
         stackView.addArrangedSubview(textLabel)
         
     }
+    
+    private func setupTableView(){
+        self.tableView = UITableView()
+//            frame: CGRect(origin: CGPoint(x: 0,
+//                                                                   y: Int(stackView.frame.maxY)),
+//                                                   size: view.frame.size),
+//                                     style: .plain)
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.tableView.backgroundColor = .black
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.register(TableViewCell.self, forCellReuseIdentifier: TableViewCell.cellID)
+        self.tableView.rowHeight = 55
+        self.tableView.reloadData()
+
+    }
+    
     private func addSubViews(){
         view.addSubview(stackView)
         view.addSubview(tableView)
-    }
-    
-    private func setupTableView(){
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
-        self.tableView.reloadData()
-        
     }
     
     private func setupConstraints(){
@@ -107,9 +113,11 @@ class HomeViewController: UIViewController {
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 15).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
     }
     
     private func setupNavigationController(){
@@ -124,13 +132,7 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
-    private func updateTableView(){
-        self.tableView.frame = CGRect(origin: .zero,
-                                      size: CGSize(width: 500,
-                                                   height: 500))
-    }
-    
-    @IBAction
+    @objc
     private func actionfunc(_ sender: Any){
         scanForBLEDevices()
     }
@@ -196,7 +198,7 @@ class HomeViewController: UIViewController {
         
         // Start Scanning
         _centralManager?.scanForPeripherals(withServices: [] , options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
-        Timer.scheduledTimer(withTimeInterval: 15, repeats: false) {_ in
+        Timer.scheduledTimer(withTimeInterval: 7, repeats: false) {_ in
             self.stopScanning()
         }
     }
@@ -217,7 +219,6 @@ class HomeViewController: UIViewController {
     func delayedConnection() -> Void {
         
         BlePeripheral.connectedPeripheral = bluefruitPeripheral
-        
         //          DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
         //            //Once connected, move to new view controller to manager incoming and outgoing data
         //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -380,15 +381,17 @@ extension HomeViewController: CBPeripheralDelegate {
 
 
 extension HomeViewController: UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.peripheralArray.count != 0{
             print("self.peripheralArray count: \(self.peripheralArray.count)")
         }
         return self.peripheralArray.count
     }
-    
+        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "TableViewCell") as! TableViewCell
+        
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: TableViewCell.cellID,for: indexPath) as! TableViewCell
         
         let peripheralFound = self.peripheralArray[indexPath.row]
         let rssiFound = self.rssiArray[indexPath.row]
@@ -396,7 +399,11 @@ extension HomeViewController: UITableViewDataSource{
         if peripheralFound == nil {
             cell.peripheralLabel.text = "Unknown"
         }else {
-            cell.peripheralLabel.text = peripheralFound.name
+            if (peripheralFound.name ?? "").isEmpty{
+                cell.peripheralLabel.text = "Name not Known"
+            }else{
+                cell.peripheralLabel.text = peripheralFound.name
+            }
             cell.rssiLabel.text = "RSSI: \(rssiFound)"
         }
         
@@ -411,11 +418,11 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        bluefruitPeripheral = peripheralArray[indexPath.row]
-        
-        BlePeripheral.connectedPeripheral = bluefruitPeripheral
-        
-        connectToDevice()
+//        bluefruitPeripheral = peripheralArray[indexPath.row]
+//        
+//        BlePeripheral.connectedPeripheral = bluefruitPeripheral
+//        
+//        connectToDevice()
         
     }
 }

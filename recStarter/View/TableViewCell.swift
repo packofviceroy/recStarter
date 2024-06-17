@@ -7,33 +7,69 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
-
-    lazy var peripheralLabel: UILabel = {
+    static var cellID = "MyCellID"
+    
+    var peripheralLabel: UILabel = {
         let textLabel = UILabel()
         
-        textLabel.text = ""
-        textLabel.font = .boldSystemFont(ofSize: 10)
-        textLabel.textColor = .black
+        textLabel.text = "PERIPHERAL"
+        textLabel.font = .systemFont(ofSize: 23)
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         return textLabel
     }()
     
-    lazy var rssiLabel: UILabel = {
+    var rssiLabel: UILabel = {
         let textLabel = UILabel()
         
-        textLabel.text = ""
-        textLabel.font = .boldSystemFont(ofSize: 10)
-        textLabel.textColor = .black
+        textLabel.text = "RSSI"
+        textLabel.font = .systemFont(ofSize: 23)
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         return textLabel
     }()
 
-
+    override func prepareForReuse() {
+        rssiLabel.text = ""
+        peripheralLabel.text = ""
+        accessoryType = .none
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        addSubview(peripheralLabel)
+        addSubview(rssiLabel)
+        setupConstraints()
+        accessoryType = .detailButton
+        
     }
 
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        addSubview(peripheralLabel)
+        addSubview(rssiLabel)
+        setupConstraints()
+        accessoryType = .detailButton 
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func setupConstraints(){
+        peripheralLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        peripheralLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        peripheralLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        peripheralLabel.heightAnchor.constraint(equalToConstant: 25)
+        
+        rssiLabel.topAnchor.constraint(equalTo: peripheralLabel.bottomAnchor).isActive = true
+        rssiLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        rssiLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        rssiLabel.heightAnchor.constraint(equalToConstant: 25)
+
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

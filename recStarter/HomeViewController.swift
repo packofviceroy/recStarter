@@ -13,6 +13,8 @@ import CoreBluetooth
 
 class HomeViewController: UIViewController {
     
+    private var data = ["asdasda","asdasda"]
+    
     
     // MARK: - BlueTooth var
     private var _centralManager: CBCentralManager!
@@ -26,7 +28,22 @@ class HomeViewController: UIViewController {
     
     // MARK: - GUI variables
     
-    @IBOutlet weak var peripheralFoundLabel: UILabel!
+    lazy var tableView: UITableView = {
+        let table =  UITableView()
+        table.backgroundColor = .white
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
+    }()
+    
+    lazy var peripheralFoundLabel: UILabel = {
+        let textLabel = UILabel()
+        
+        textLabel.text = ""
+        textLabel.font = .boldSystemFont(ofSize: 17)
+        textLabel.textColor = .white
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        return textLabel
+    }()
     
     private lazy var textLabel: UILabel = {
         let textLabel = UILabel()
@@ -56,28 +73,43 @@ class HomeViewController: UIViewController {
         
         view.backgroundColor = .black
         setupNavigationController()
-        setupStackView()
         addSubViews()
+        setupStackView()
+        setupTableView()
         setupConstraints()
         
         _centralManager = CBCentralManager(delegate: self, queue: nil)
-        
-        
     }
+    
     
     // MARK: - GUI functions
     private func setupStackView(){
+        stackView.addArrangedSubview(peripheralFoundLabel)
         stackView.addArrangedSubview(textLabel)
         
     }
     private func addSubViews(){
         view.addSubview(stackView)
+        view.addSubview(tableView)
     }
+    
+    private func setupTableView(){
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+        self.tableView.reloadData()
+        
+    }
+    
     private func setupConstraints(){
         stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor
                                        ,constant: 30).isActive = true
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        
+        tableView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 15).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
     private func setupNavigationController(){
@@ -92,6 +124,12 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
+    private func updateTableView(){
+        self.tableView.frame = CGRect(origin: .zero,
+                                      size: CGSize(width: 500,
+                                                   height: 500))
+    }
+    
     @IBAction
     private func actionfunc(_ sender: Any){
         scanForBLEDevices()
@@ -103,6 +141,8 @@ class HomeViewController: UIViewController {
         present(controller, animated: true)
         
     }
+    
+    
     
     // MARK: - BLUETOOTH functions
     func connectToDevice() -> Void {
@@ -125,18 +165,18 @@ class HomeViewController: UIViewController {
         // Remove prior data
         peripheralArray.removeAll()
         rssiArray.removeAll()
-        // Start Scanning
-        
+        navigationController?.navigationBar.topItem?.rightBarButtonItem?.isEnabled = false
         
         if _centralManager.state != .poweredOn
         {
             let controller = UIAlertController(title: "ERROR", message: "Can not scan because bluetooth is disabled", preferredStyle: .alert)
-            controller.addAction(UIAlertAction(title:"EXIT", style: .default, handler: doSomething))
+            controller.addAction(UIAlertAction(title:"EXIT", style: .default, handler: exitNoBluetooth))
             present(controller, animated: true)
         }
+        
+        // Start Scanning
         _centralManager?.scanForPeripherals(withServices: [CBUUIDs.BLEService_UUID])
-        navigationController?.navigationBar.topItem?.rightBarButtonItem?.isEnabled = false
-        Timer.scheduledTimer(withTimeInterval: 15, repeats: false) {_ in
+        Timer.scheduledTimer(withTimeInterval: 7, repeats: false) {_ in
             self.stopScanning()
         }
     }
@@ -145,12 +185,15 @@ class HomeViewController: UIViewController {
         // Remove prior data
         peripheralArray.removeAll()
         rssiArray.removeAll()
+        navigationController?.navigationBar.topItem?.rightBarButtonItem?.isEnabled = false
+        
         if _centralManager.state != .poweredOn
         {
             let controller = UIAlertController(title: "ERROR", message: "Can not scan because bluetooth is disabled", preferredStyle: .alert)
-            controller.addAction(UIAlertAction(title:"EXIT", style: .default, handler: doSomething))
+            controller.addAction(UIAlertAction(title:"EXIT", style: .default, handler: exitNoBluetooth))
             present(controller, animated: true)
         }
+        
         // Start Scanning
         _centralManager?.scanForPeripherals(withServices: [] , options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
         Timer.scheduledTimer(withTimeInterval: 15, repeats: false) {_ in
@@ -158,7 +201,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    func doSomething(action: UIAlertAction) {
+    func exitNoBluetooth(action: UIAlertAction) {
         exit(0)
     }
     
@@ -188,10 +231,7 @@ class HomeViewController: UIViewController {
 }
 
 
-
-
-
-
+// MARK: - CBCentralManagerDelegate
 extension HomeViewController: CBCentralManagerDelegate{
     
     // MARK: - Check
@@ -234,7 +274,8 @@ extension HomeViewController: CBCentralManagerDelegate{
         
         print("Peripheral Discovered: \(peripheral)")
         
-        self.stackView.reloadInputViews()
+        self.view.reloadInputViews()
+        self.tableView.reloadData()
     }
     
     // MARK: - Connect
@@ -338,20 +379,43 @@ extension HomeViewController: CBPeripheralDelegate {
 }
 
 
-
-extension HomeViewController: UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0;
+extension HomeViewController: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.peripheralArray.count != 0{
+            print("self.peripheralArray count: \(self.peripheralArray.count)")
+        }
+        return self.peripheralArray.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell();
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "TableViewCell") as! TableViewCell
+        
+        let peripheralFound = self.peripheralArray[indexPath.row]
+        let rssiFound = self.rssiArray[indexPath.row]
+        
+        if peripheralFound == nil {
+            cell.peripheralLabel.text = "Unknown"
+        }else {
+            cell.peripheralLabel.text = peripheralFound.name
+            cell.rssiLabel.text = "RSSI: \(rssiFound)"
+        }
+        
+        return cell
     }
-    
-    
     
 }
 
-extension HomeViewController: UICollectionViewDelegate{
+// MARK: - UITableViewDelegate
+// Methods for managing selections, deleting and reordering cells and performing other actions in a table view.
+extension HomeViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        bluefruitPeripheral = peripheralArray[indexPath.row]
+        
+        BlePeripheral.connectedPeripheral = bluefruitPeripheral
+        
+        connectToDevice()
+        
+    }
 }

@@ -7,49 +7,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8371CD26-7352-4B18-B269-652636F52E57"
+            uuid = "45EBFAA7-3C00-400B-866F-AD4B7A74EC44"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "recStarter/HomeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "stopScanning()"
+            startingLineNumber = "391"
+            endingLineNumber = "391"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "8371CD26-7352-4B18-B269-652636F52E57 - 90c0d1b48af3ea08"
+                  uuid = "45EBFAA7-3C00-400B-866F-AD4B7A74EC44 - 9c6841644d8d117c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "recStarter.HomeViewController.delayedConnection() -&gt; ()"
+                  symbolName = "recStarter.HomeViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
                   moduleName = "recStarter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dumbo/Documents/XCode/recStarter/recStarter/HomeViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "172"
-                  endingLineNumber = "172"
-                  offsetFromSymbolStart = "28">
+                  startingLineNumber = "393"
+                  endingLineNumber = "393"
+                  offsetFromSymbolStart = "240">
                </Location>
                <Location
-                  uuid = "8371CD26-7352-4B18-B269-652636F52E57 - aa4fb9c32faaa81e"
+                  uuid = "45EBFAA7-3C00-400B-866F-AD4B7A74EC44 - 9c6841644d8d11be"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "recStarter.HomeViewController.stopScanning() -&gt; ()"
+                  symbolName = "recStarter.HomeViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
                   moduleName = "recStarter"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dumbo/Documents/XCode/recStarter/recStarter/HomeViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "172"
-                  endingLineNumber = "172"
-                  offsetFromSymbolStart = "64">
+                  startingLineNumber = "391"
+                  endingLineNumber = "391"
+                  offsetFromSymbolStart = "240">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9F4AE633-328A-4EC6-BD18-4F3BBEE8C2D9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "recStarter/HomeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "centralManager(_:didDiscover:advertisementData:rssi:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -3,10 +3,56 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "HomeViewController.centralManager(_:didDiscover:advertisementData:rssi:):HomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tableView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HomeViewController.actionfunc(_:):HomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.stackView.frame.minY">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HomeViewController.viewDidLoad():HomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.stackView.bounds.minX">
+            </PersistentString>
+            <PersistentString
+               value = "self.stackView.frame.minY">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HomeViewController.updateLayout(with:):HomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.stackView.bounds.minX">
+            </PersistentString>
+            <PersistentString
+               value = "self.stackView.bounds.minY">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "HomeViewController.stopScanning():HomeViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "peripheralArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HomeViewController.tableView(_:numberOfRowsInSection:):HomeViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.peripheralArray.count">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

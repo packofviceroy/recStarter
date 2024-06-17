@@ -74,7 +74,6 @@ class HomeViewController: UIViewController {
         setupTableView()
         addSubViews()
         setupConstraints()
-        print(navigationController?.children)
         _centralManager = CBCentralManager(delegate: self, queue: nil)
     }
     
@@ -128,8 +127,10 @@ class HomeViewController: UIViewController {
                                      action: #selector(actionfunc))
         button.isEnabled = true
         navigationController?.navigationBar.topItem?.rightBarButtonItem = button
+        navigationController?.navigationBar.topItem?.leftBarButtonItem = .none
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        
     }
     
     @objc
@@ -137,8 +138,8 @@ class HomeViewController: UIViewController {
         scanForBLEDevices()
     }
     
-    func show(){
-        let controller = UIAlertController(title: "ERROR", message: "SOME ERROR", preferredStyle: .alert)
+    func show(error : String?){
+        let controller = UIAlertController(title: "ERROR", message: error, preferredStyle: .alert)
         controller.addAction(UIAlertAction(title:"EXIT", style: .default))
         present(controller, animated: true)
         
@@ -148,12 +149,18 @@ class HomeViewController: UIViewController {
     
     // MARK: - BLUETOOTH functions
     func connectToDevice() -> Void {
-        _centralManager?.connect(bluefruitPeripheral!, options: nil)
+        _centralManager?.connect(bluefruitPeripheral!, options: [CBConnectPeripheralOptionNotifyOnDisconnectionKey:true, CBConnectPeripheralOptionNotifyOnConnectionKey:true] )
+        Timer.scheduledTimer(withTimeInterval: 15, repeats: false) {_ in
+            if(BlePeripheral.connectedPeripheral == nil){
+                self._centralManager?.cancelPeripheralConnection(self.bluefruitPeripheral!)
+            }
+        }
     }
     
     func disconnectFromDevice() -> Void {
-        if bluefruitPeripheral != nil {
-            _centralManager?.cancelPeripheralConnection(bluefruitPeripheral!)
+        if BlePeripheral.connectedPeripheral != nil {
+            _centralManager?.cancelPeripheralConnection(BlePeripheral.connectedPeripheral!)
+            BlePeripheral.connectedPeripheral = nil
         }
     }
     
@@ -177,7 +184,8 @@ class HomeViewController: UIViewController {
         }
         
         // Start Scanning
-        _centralManager?.scanForPeripherals(withServices: [CBUUIDs.BLEService_UUID])
+        _centralManager?.scanForPeripherals(withServices: [CBUUIDs.BLEService_UUID],
+                                            options: [CBCentralManagerScanOptionAllowDuplicatesKey: false])
         Timer.scheduledTimer(withTimeInterval: 7, repeats: false) {_ in
             self.stopScanning()
         }
@@ -198,7 +206,7 @@ class HomeViewController: UIViewController {
         
         // Start Scanning
         _centralManager?.scanForPeripherals(withServices: [] , options: [CBCentralManagerScanOptionAllowDuplicatesKey:true])
-        Timer.scheduledTimer(withTimeInterval: 7, repeats: false) {_ in
+        Timer.scheduledTimer(withTimeInterval: 3, repeats: false) {_ in
             self.stopScanning()
         }
     }
@@ -207,14 +215,9 @@ class HomeViewController: UIViewController {
         exit(0)
     }
     
-    func stopTimer() -> Void {
-        // Stops Timer
-        self.timer.invalidate()
-    }
-    
     func stopScanning() -> Void {
-        navigationController?.navigationBar.topItem?.rightBarButtonItem?.isEnabled = true
         _centralManager?.stopScan()
+        navigationController?.navigationBar.topItem?.rightBarButtonItem?.isEnabled = true
     }
     func delayedConnection() -> Void {
         
@@ -252,7 +255,7 @@ extension HomeViewController: CBCentralManagerDelegate{
         case .resetting:
             print("Resetting")
         @unknown default:
-            show()
+            show(error: "Unknow Bluetooth state")
         }
     }
     
@@ -282,7 +285,18 @@ extension HomeViewController: CBCentralManagerDelegate{
     // MARK: - Connect
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         stopScanning()
-        bluefruitPeripheral.discoverServices([CBUUIDs.BLEService_UUID])
+        BlePeripheral.connectedPeripheral = peripheral
+        peripheral.delegate = self
+        bluefruitPeripheral.discoverServices([])
+        navigationController?.pushViewController(ButtonViewController(), animated: true)
+    }
+    
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        stopScanning()
+        BlePeripheral.connectedPeripheral = nil
+        if error{
+            show()
+        }
     }
 }
 
@@ -293,6 +307,9 @@ extension HomeViewController: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         
         guard let services = peripheral.services else { return }
+        if services.isEmpty {
+            return
+        }
         for service in services {
             peripheral.discoverCharacteristics(nil, for: service)
         }
@@ -418,11 +435,11 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        bluefruitPeripheral = peripheralArray[indexPath.row]
+        bluefruitPeripheral = peripheralArray[indexPath.row]
+        
+        BlePeripheral.connectedPeripheral = bluefruitPeripheral
 //        
-//        BlePeripheral.connectedPeripheral = bluefruitPeripheral
-//        
-//        connectToDevice()
+        connectToDevice()
         
     }
 }

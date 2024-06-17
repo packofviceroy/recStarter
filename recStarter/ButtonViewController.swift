@@ -53,9 +53,27 @@ class ButtonViewController: UIViewController {
                                      selector: #selector(reloadTimerText), userInfo: nil, repeats: true)
 
         view.addSubview(stackView)
+        setupNavigationController()
         setupStackView()
         setupConstraints()
         setupButton()
+    }
+    
+    func setupNavigationController(){
+        navigationItem.title = "Button"
+        let button = UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
+                                     style: .done,
+                                     target: self,
+                                     action: #selector(goBackHome))
+        navigationController?.navigationBar.topItem?.leftBarButtonItem = button
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        
+    }
+    
+    @objc
+    func goBackHome(){
+        
     }
     
     @objc

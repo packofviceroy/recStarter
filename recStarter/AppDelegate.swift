@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let _navigationController = UINavigationController(rootViewController: HomeViewController())
         _window?.rootViewController = _navigationController
         _window?.makeKeyAndVisible()
-        _navigationController.addChild(ButtonViewController())
         
         return true
     }
